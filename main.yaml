@@ -1,6 +1,5 @@
 - name: "install {{component}}"
- # main.yaml
-- hosts: "{{componentSS}}"
-  become: true
-  roles:
-    - "{{ component }}"
+  hosts: "{{component}}"
+  become: yes
+  roles: 
+    - "{{component}}"
