@@ -2,6 +2,6 @@
   hosts: "{{component}}"
   become: yes
   tasks:
-  - "{{component}}"
+    - "{{component}}"
 
     
