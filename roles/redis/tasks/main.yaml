@@ -1,0 +1,25 @@
+- name: install redis release
+  ansible.builtin.command: dnf install https://rpms.remirepo.net/enterprise/remi-release-8.6.rpm -y
+
+- name: Reset default Redis module
+  ansible.builtin.command: dnf module reset redis -y
+
+- name: Enable default Redis module
+  ansible.builtin.command: dnf module enable redis:remi-6.2 -y
+  
+- name: Install Redis
+  ansible.builtin.package:
+    name: redis
+    state: present
+
+- name: allow remote connections
+  ansible.builtin.replace:
+    path: /etc/redis/redis.conf
+    regexp: '127.0.0.1'
+    replace: '0.0.0.0'
+
+- name: start and enable redis
+  ansible.builtin.service:
+    name: redis
+    state: restarted
+    enabled: yes
